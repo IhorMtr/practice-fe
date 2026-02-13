@@ -1,0 +1,113 @@
+// ==================== FONT SIZES ====================
+
+$fs-xs: 0.75rem;
+$fs-sm: 0.875rem;
+$fs-md: 1rem;
+$fs-lg: 1.125rem;
+$fs-xl: 1.25rem;
+
+// ==================== LINE HEIGHTS ====================
+
+$lh-tight: 1.25;
+$lh-normal: 1.5;
+
+// ==================== RADIUSES ====================
+
+$r-sm: 8px;
+$r-md: 12px;
+$r-lg: 16px;
+
+// ==================== SPACINGS ====================
+
+$sp-1: 4px;
+$sp-2: 8px;
+$sp-3: 12px;
+$sp-4: 16px;
+$sp-5: 24px;
+$sp-6: 32px;
+
+$border-1: 1px;
+$shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+$shadow-md: 0 8px 20px rgba(16, 24, 40, 0.12);
+
+$white: #ffffff;
+$black: #0b1220;
+
+// ==================== GRAYSCALE ====================
+
+$gray-50: #f8fafc;
+$gray-100: #f1f5f9;
+$gray-200: #e2e8f0;
+$gray-300: #cbd5e1;
+$gray-400: #94a3b8;
+$gray-600: #475569;
+$gray-700: #334155;
+
+// ==================== COLORS ====================
+
+$primary-500: #2563eb;
+$primary-600: #1d4ed8;
+
+$success-500: #16a34a;
+$warning-500: #f59e0b;
+$danger-500: #ef4444;
+
+// ==================== BACKGROUND COLORS ====================
+
+$color-bg: $gray-50;
+$color-surface: $white;
+
+// ==================== TEXT COLORS ====================
+
+$color-text: $black;
+$color-text-muted: $gray-600;
+$color-placeholder: $gray-400;
+
+// ==================== BORDERS ====================
+
+$color-border: $gray-200;
+$color-border-strong: $gray-300;
+
+// ==================== PRIMARY COLORS ====================
+
+$color-primary: $primary-500;
+$color-primary-hover: $primary-600;
+
+// ==================== STATUS COLORS ====================
+
+$color-success: $success-500;
+$color-warning: $warning-500;
+$color-danger: $danger-500;
+
+// ==================== FOCUS RING ====================
+
+$focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.25);
+
+
+// ==================== COMPONENTS ====================
+
+$radius-control: $r-md;
+$radius-card: $r-lg;
+$input-height: 40px;
+$btn-height: 40px;
+
+// ==================== BREAKPOINTS ====================
+
+$bp-sm: 480px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+
+
+// ==================== SPACING FOR SECTIONS ===========
+$section-py-sm: 24px;
+$section-px-sm: 16px;
+
+$section-py-md: 40px;
+$section-px-md: 24px;
+
+$section-py-lg: 56px;
+$section-px-lg: 32px;
+
+// ==================== OTHER VARIABLES ====================
+
+$container-max: 1120px;

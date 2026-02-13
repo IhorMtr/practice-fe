@@ -1,14 +1,23 @@
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Inter } from 'next/font/google';
+import { Metadata } from 'next';
+
 import '../styles/globals.scss';
+import '../styles/globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+};
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+export const metadata: Metadata = {
+  title: 'Practice FE',
+  description: 'Frontend practice project',
+};
+
+const inter = Inter({
+  variable: '--font-inter',
+  subsets: ['latin', 'cyrillic'],
 });
 
 export default function RootLayout({
@@ -18,10 +27,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="uk">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={inter.variable}>
+        <main>{children}</main>
       </body>
     </html>
   );
