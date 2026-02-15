@@ -1,0 +1,67 @@
+@use '@/styles/variables' as *;
+
+.form {
+    display: grid;
+    gap: $sp-4;
+}
+
+.field {
+    display: grid;
+    gap: $sp-2;
+}
+
+.label {
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    color: $color-text;
+}
+
+.input {
+    height: $input-height;
+    width: 100%;
+    padding: 0 $sp-3;
+    border: $border-1 solid $color-border;
+    border-radius: $radius-control;
+    background: $color-surface;
+    color: $color-text;
+    box-shadow: $shadow-sm;
+
+    &::placeholder {
+        color: $color-placeholder;
+    }
+
+    &:hover {
+        border-color: $color-border-strong;
+    }
+}
+
+.inputError {
+    border-color: $color-danger;
+}
+
+.error {
+    font-size: $fs-xs;
+    line-height: $lh-normal;
+    color: $color-danger;
+}
+
+.submit {
+    height: $btn-height;
+    width: 100%;
+    border-radius: $radius-control;
+    background: $color-primary;
+    color: $white;
+    font-size: $fs-md;
+    line-height: $lh-normal;
+    box-shadow: $shadow-sm;
+    transition: background-color 0.15s ease, opacity 0.15s ease;
+
+    &:hover {
+        background: $color-primary-hover;
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}

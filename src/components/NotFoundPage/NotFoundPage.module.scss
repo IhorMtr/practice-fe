@@ -1,0 +1,213 @@
+@use '@/styles/variables' as *;
+
+.page {
+    min-height: 100vh;
+    background: $color-bg;
+}
+
+.section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    position: relative;
+    width: min(720px, 100%);
+    background: $color-surface;
+    border: $border-1 solid $color-border;
+    border-radius: $radius-card;
+    box-shadow: $shadow-md;
+    padding: $sp-6;
+    overflow: hidden;
+}
+
+.top {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: $sp-2;
+    margin-bottom: $sp-5;
+}
+
+.badge {
+    width: fit-content;
+    font-size: $fs-xs;
+    line-height: $lh-tight;
+    font-weight: 700;
+    color: $color-text;
+    background: $gray-100;
+    border: $border-1 solid $color-border;
+    border-radius: 999px;
+    padding: $sp-1 $sp-2;
+}
+
+.code {
+    font-size: clamp(3.25rem, 6vw, 4.5rem);
+    line-height: 1;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+
+    background: linear-gradient(135deg, $primary-500, $primary-600);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.title {
+    font-size: 1.5rem;
+    line-height: $lh-tight;
+    font-weight: 800;
+    color: $color-text;
+}
+
+.text {
+    font-size: $fs-md;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+    max-width: 56ch;
+}
+
+.actions {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $sp-3;
+    margin-bottom: $sp-6;
+}
+
+.primaryBtn {
+    height: $btn-height;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 $sp-4;
+    border-radius: $radius-control;
+    background: $color-primary;
+    color: $white;
+    font-weight: 700;
+    box-shadow: $shadow-sm;
+    transition: background-color 120ms ease, transform 120ms ease;
+
+    &:hover {
+        background: $color-primary-hover;
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
+}
+
+.secondaryBtn {
+    height: $btn-height;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 $sp-4;
+    border-radius: $radius-control;
+    background: $gray-100;
+    border: $border-1 solid $color-border;
+    color: $color-text;
+    font-weight: 700;
+    transition: background-color 120ms ease, border-color 120ms ease, transform 120ms ease;
+
+    &:hover {
+        background: $gray-200;
+        border-color: $color-border-strong;
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
+}
+
+.links {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: $sp-3;
+}
+
+.linksTitle {
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+    font-weight: 700;
+}
+
+.linksGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: $sp-3;
+
+    @media (max-width: $bp-md) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.linkCard {
+    background: $gray-50;
+    border: $border-1 solid $color-border;
+    border-radius: $radius-control;
+    padding: $sp-4;
+    box-shadow: $shadow-sm;
+    transition: transform 120ms ease, border-color 120ms ease, background-color 120ms ease;
+
+    &:hover {
+        background: $white;
+        border-color: $color-border-strong;
+        transform: translateY(-1px);
+    }
+
+    &:active {
+        transform: translateY(0px);
+    }
+}
+
+.linkTitle {
+    font-size: $fs-md;
+    line-height: $lh-normal;
+    font-weight: 800;
+    color: $color-text;
+    margin-bottom: $sp-1;
+}
+
+.linkHint {
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+}
+
+.footer {
+    position: relative;
+    z-index: 1;
+    margin-top: $sp-5;
+    padding-top: $sp-4;
+    border-top: $border-1 solid $color-border;
+}
+
+.tip {
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    color: $color-placeholder;
+}
+
+.decor {
+    position: absolute;
+    inset: -80px -120px auto auto;
+    width: 340px;
+    height: 340px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 30% 30%,
+            rgba(37, 99, 235, 0.22),
+            rgba(37, 99, 235, 0.08) 45%,
+            rgba(37, 99, 235, 0) 70%);
+    transform: rotate(18deg);
+    pointer-events: none;
+}

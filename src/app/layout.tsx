@@ -3,6 +3,9 @@ import { Metadata } from 'next';
 
 import '../styles/globals.scss';
 import '../styles/globals.css';
+import TanStackProvider from '@/state/providers/TanstackProvider';
+import { AppToaster } from '@/components/AppToaster/AppToaster';
+import AuthProvider from '@/state/providers/AuthProvider';
 
 export const viewport = {
   width: 'device-width',
@@ -28,7 +31,12 @@ export default function RootLayout({
   return (
     <html lang="uk">
       <body className={inter.variable}>
-        <main>{children}</main>
+        <TanStackProvider>
+          <AuthProvider>
+            <AppToaster />
+            <main>{children}</main>
+          </AuthProvider>
+        </TanStackProvider>
       </body>
     </html>
   );
