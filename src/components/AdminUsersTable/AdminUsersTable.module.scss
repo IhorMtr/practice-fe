@@ -1,0 +1,178 @@
+@use '@/styles/variables' as *;
+
+.tableHeader {
+    display: flex;
+    justify-content: flex-end;
+    gap: $sp-3;
+}
+
+.note {
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    color: $color-placeholder;
+}
+
+.cellStrong {
+    font-weight: 800;
+    color: $color-text;
+}
+
+.cellMuted {
+    color: $color-text-muted;
+}
+
+.select {
+    width: 100%;
+    min-width: 220px;
+    height: $input-height;
+    border-radius: $radius-control;
+    border: $border-1 solid $color-border;
+    background: $color-surface;
+    padding: 0 $sp-4;
+    color: $color-text;
+
+    &:focus-visible {
+        box-shadow: $focus-ring;
+        border-color: $color-border-strong;
+    }
+
+    &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+}
+
+.actionCell {
+    display: flex;
+    justify-content: flex-end;
+    white-space: nowrap;
+}
+
+.primaryBtn {
+    height: $btn-height;
+    border-radius: $radius-control;
+    padding: 0 $sp-4;
+    background: $color-primary;
+    color: $white;
+    font-weight: 800;
+    box-shadow: $shadow-sm;
+    transition: background-color 120ms ease, transform 120ms ease;
+
+    &:hover {
+        background: $color-primary-hover;
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
+
+    &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+}
+
+.secondaryBtn {
+    height: $btn-height;
+    border-radius: $radius-control;
+    padding: 0 $sp-4;
+    background: $gray-100;
+    border: $border-1 solid $color-border;
+    color: $color-text;
+    font-weight: 700;
+    box-shadow: $shadow-sm;
+    transition: background-color 120ms ease, border-color 120ms ease;
+
+    &:hover {
+        background: $gray-200;
+        border-color: $color-border-strong;
+    }
+
+    &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+}
+
+.disabledBtn {
+    height: $btn-height;
+    border-radius: $radius-control;
+    padding: 0 $sp-4;
+    background: $gray-100;
+    border: $border-1 solid $color-border;
+    color: $color-text-muted;
+    font-weight: 700;
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.checkboxLabel {
+    display: inline-flex;
+    align-items: center;
+    gap: $sp-3;
+    user-select: none;
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: $r-sm;
+    border: $border-1 solid $color-border-strong;
+    background: $color-surface;
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-grid;
+    place-content: center;
+    cursor: pointer;
+    transition: background-color 120ms ease, border-color 120ms ease,
+        transform 120ms ease;
+
+    &:hover {
+        border-color: $color-primary;
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+
+    &:focus-visible {
+        box-shadow: $focus-ring;
+        border-color: $color-primary;
+    }
+
+    &::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        transform: scale(0);
+        transition: transform 120ms ease;
+        background: $white;
+    }
+
+    &:checked {
+        background: $color-primary;
+        border-color: $color-primary;
+
+        &::after {
+            transform: scale(1);
+        }
+    }
+
+    &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+
+    &:disabled+.checkboxText {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+}
+
+.checkboxText {
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    color: $color-text;
+    white-space: nowrap;
+}

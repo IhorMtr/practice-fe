@@ -18,3 +18,5 @@ export type User = {
   role: UserRole;
   isActive: boolean;
 };
+
+export type RoleKey = Exclude<UserRole, null>;

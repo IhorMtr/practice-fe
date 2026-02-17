@@ -1,0 +1,73 @@
+@use '@/styles/variables' as *;
+
+.card {
+    background: $color-surface;
+    border: $border-1 solid $color-border;
+    border-radius: $radius-card;
+    box-shadow: $shadow-sm;
+    overflow: hidden;
+}
+
+.tableWrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.th {
+    text-align: left;
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+    font-weight: 800;
+    background: $gray-50;
+    border-bottom: $border-1 solid $color-border;
+    padding: $sp-3 $sp-4;
+    white-space: nowrap;
+}
+
+.td {
+    padding: $sp-3 $sp-4;
+    border-bottom: $border-1 solid $color-border;
+    vertical-align: middle;
+}
+
+.tr:hover {
+    background: $gray-50;
+}
+
+.tr:last-child .td {
+    border-bottom: 0;
+}
+
+.trClickable {
+    cursor: pointer;
+}
+
+.trClickable:focus-visible {
+    outline: none;
+    box-shadow: $focus-ring;
+}
+
+.empty {
+    font-size: $fs-md;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+    background: $gray-50;
+    padding: $sp-6;
+}
+
+.error {
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    color: $color-danger;
+    background: rgba(239, 68, 68, 0.08);
+    border: $border-1 solid rgba(239, 68, 68, 0.25);
+    border-radius: $radius-control;
+    padding: $sp-3;
+    margin: $sp-4;
+}

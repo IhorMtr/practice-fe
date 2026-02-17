@@ -4,10 +4,8 @@ import { useCallback, useMemo } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { useLogout } from '../requestHooks/useLogout';
-import type { UserRole } from '@/types/types/GlobalTypes';
+import type { RoleKey } from '@/types/types/GlobalTypes';
 import { useClaimsStore } from '@/state/stores/useClaimsStore';
-
-type RoleKey = Exclude<UserRole, null>;
 
 type NavItem = {
   label: string;
@@ -28,7 +26,7 @@ export function useSidebar() {
     const all: NavItem[] = [
       { label: 'Головна', href: '/' },
       { label: 'Заявки', href: '/tickets' },
-      { label: 'Клієнти', href: '/clients' },
+      { label: 'Клієнти', href: '/clients', roles: ['admin', 'manager'] },
       { label: 'Користувачі', href: '/admin/users', roles: ['admin'] },
     ];
 

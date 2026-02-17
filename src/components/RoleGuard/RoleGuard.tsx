@@ -3,17 +3,18 @@
 import { useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
-import type { UserRole } from '@/types/types/GlobalTypes';
+import type { RoleKey, UserRole } from '@/types/types/GlobalTypes';
 import { useClaimsStore } from '@/state/stores/useClaimsStore';
 
-type RoleKey = Exclude<UserRole, null>;
-
-type Props = {
+interface RoleGuardProps {
   allow?: RoleKey[];
   redirectTo?: string;
-};
+}
 
-export default function RoleGuard({ allow, redirectTo = '/login' }: Props) {
+export default function RoleGuard({
+  allow,
+  redirectTo = '/login',
+}: RoleGuardProps) {
   const router = useRouter();
   const pathname = usePathname();
 

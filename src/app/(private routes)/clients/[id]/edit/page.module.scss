@@ -1,0 +1,73 @@
+@use '@/styles/variables' as *;
+
+.page {
+    background: $color-bg;
+    min-height: 100%;
+}
+
+.container {
+    display: grid;
+    gap: $sp-4;
+}
+
+.header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $sp-4;
+}
+
+.h1 {
+    font-size: 1.5rem;
+    line-height: $lh-tight;
+    font-weight: 800;
+    color: $color-text;
+}
+
+.subtitle {
+    margin-top: $sp-2;
+    font-size: $fs-md;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+    max-width: 70ch;
+}
+
+.secondaryBtn {
+    height: $btn-height;
+    border-radius: $radius-control;
+    padding: 0 $sp-4;
+    background: $gray-100;
+    border: $border-1 solid $color-border;
+    color: $color-text;
+    font-weight: 700;
+    box-shadow: $shadow-sm;
+    transition: background-color 120ms ease, border-color 120ms ease;
+
+    &:hover {
+        background: $gray-200;
+        border-color: $color-border-strong;
+    }
+
+    &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+}
+
+.card {
+    background: $color-surface;
+    border: $border-1 solid $color-border;
+    border-radius: $radius-card;
+    box-shadow: $shadow-sm;
+    overflow: hidden;
+    padding: $sp-5;
+}
+
+.empty {
+    font-size: $fs-md;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+    background: $gray-50;
+    border-radius: $radius-control;
+    padding: $sp-6;
+}

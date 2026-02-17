@@ -1,63 +1,43 @@
 'use client';
 
 import { useCallback, useMemo } from 'react';
-import toast from 'react-hot-toast';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
-import { useLogout } from '@/hooks/requestHooks/useLogout';
-
-type NavItem = {
-  label: string;
-  href: string;
-};
+import { useClaimsStore } from '@/state/stores/useClaimsStore';
 
 export function useHomePage() {
   const router = useRouter();
-  const pathname = usePathname();
+  const role = useClaimsStore(s => s.claims?.role ?? null);
 
-  const { logout, query, error } = useLogout();
+  const title = useMemo(() => {
+    if (role === 'admin') return 'Адміністратор';
+    if (role === 'manager') return 'Менеджер';
+    if (role === 'technician') return 'Майстер';
+    return 'Користувач';
+  }, [role]);
 
-  const navItems: NavItem[] = useMemo(
-    () => [
-      { label: 'Головна', href: '/' },
-      { label: 'Заявки', href: '/requests' },
-      { label: 'Клієнти', href: '/clients' },
-      { label: 'Пристрої', href: '/devices' },
-      { label: 'Майстри', href: '/technicians' },
-      { label: 'Налаштування', href: '/settings' },
-    ],
-    []
-  );
+  const onOpenTickets = useCallback(() => {
+    router.push('/tickets');
+  }, [router]);
 
-  const activeHref = useMemo(() => {
-    const exact = navItems.find(i => i.href === pathname)?.href;
-    if (exact) return exact;
+  const onOpenClients = useCallback(() => {
+    router.push('/clients');
+  }, [router]);
 
-    const byPrefix = navItems.find(
-      i => i.href !== '/' && pathname?.startsWith(i.href)
-    );
-    return byPrefix?.href ?? '/';
-  }, [navItems, pathname]);
+  const onAddClient = useCallback(() => {
+    router.push('/clients/new');
+  }, [router]);
 
-  const onLogout = useCallback(async () => {
-    try {
-      await logout();
-      toast.success('Ви успішно вийшли з системи');
-      router.replace('/login');
-      router.refresh();
-    } catch {}
-  }, [logout, router]);
-
-  const logoutErrorText = useMemo(() => {
-    if (!error) return '';
-    return error.message || 'Не вдалося вийти з системи. Спробуйте ще раз.';
-  }, [error]);
+  const onOpenUsers = useCallback(() => {
+    router.push('/admin/users');
+  }, [router]);
 
   return {
-    navItems,
-    activeHref,
-    isLoggingOut: query.isPending,
-    logoutErrorText,
-    onLogout,
+    role,
+    title,
+    onOpenTickets,
+    onOpenClients,
+    onAddClient,
+    onOpenUsers,
   };
 }

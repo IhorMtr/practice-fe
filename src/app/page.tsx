@@ -1,7 +1,14 @@
+'use client';
+
 import styles from './page.module.scss';
 import AppShell from '@/components/AppShell/AppShellt';
+import Rbac from '@/components/Rbac/Rbac';
+import { useHomePage } from './useHomePage';
 
 export default function Home() {
+  const { title, onOpenTickets, onOpenClients, onAddClient, onOpenUsers } =
+    useHomePage();
+
   return (
     <AppShell>
       <div className={styles.page}>
@@ -10,7 +17,7 @@ export default function Home() {
             <div>
               <h1 className={styles.h1}>Головна</h1>
               <p className={styles.subtitle}>
-                Тут буде короткий огляд заявок, клієнтів та поточних задач.
+                {title}. Тут буде короткий огляд заявок та швидкі дії.
               </p>
             </div>
           </div>
@@ -52,18 +59,46 @@ export default function Home() {
               </div>
 
               <div className={styles.actions}>
-                <button type="button" className={styles.actionBtn}>
-                  Створити заявку
+                <button
+                  type="button"
+                  className={styles.actionBtn}
+                  onClick={onOpenTickets}
+                >
+                  Перейти до заявок
                 </button>
-                <button type="button" className={styles.actionBtnSecondary}>
-                  Додати клієнта
-                </button>
-                <button type="button" className={styles.actionBtnSecondary}>
-                  Додати пристрій
-                </button>
+
+                <Rbac allow={['admin', 'manager']}>
+                  <button
+                    type="button"
+                    className={styles.actionBtnSecondary}
+                    onClick={onOpenClients}
+                  >
+                    Перейти до клієнтів
+                  </button>
+
+                  <button
+                    type="button"
+                    className={styles.actionBtnSecondary}
+                    onClick={onAddClient}
+                  >
+                    Додати клієнта
+                  </button>
+                </Rbac>
+
+                <Rbac allow={['admin']}>
+                  <button
+                    type="button"
+                    className={styles.actionBtnSecondary}
+                    onClick={onOpenUsers}
+                  >
+                    Користувачі (адмін)
+                  </button>
+                </Rbac>
               </div>
 
-              <p className={styles.muted}>Кнопки — заглушки</p>
+              <p className={styles.muted}>
+                Статистика по заявках з’явиться після реалізації tickets.
+              </p>
             </article>
           </div>
         </section>
