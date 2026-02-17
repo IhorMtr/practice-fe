@@ -4,11 +4,9 @@ import { useCallback } from 'react';
 import type { FormikHelpers } from 'formik';
 
 import styles from './page.module.scss';
-import {
-  useCreateClientPage,
-  type CreateClientFormValues,
-} from './useCreateClientPage';
+import { useCreateClientPage } from './useCreateClientPage';
 import CreateClientForm from '@/components/CreateClientForm.tsx/CreateClientForm';
+import { CreateClientFormValues } from '@/types/types/ClientTypes';
 
 // =============== PAGE =============
 export default function CreateClientPage() {
