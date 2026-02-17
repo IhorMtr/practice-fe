@@ -9,12 +9,12 @@ export type BaseResponse<T> = {
 
 // =================== Common Types ===================
 
-export type Role = 'admin' | 'manager' | 'technician' | null;
+export type UserRole = 'admin' | 'manager' | 'technician' | null;
 
 export type User = {
-  id: string;
+  _id: string;
   name: string;
   email: string;
-  role: Role;
+  role: UserRole;
   isActive: boolean;
 };

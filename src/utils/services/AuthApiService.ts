@@ -1,14 +1,15 @@
+import { ApiConfigService } from './ApiConfigService';
+import type {
+  InternalRefreshResponse,
+  LoginResponse,
+  LogoutResponse,
+  RegisterResponse,
+} from '@/types/types/AuthTypes';
 import type {
   LoginRequest,
   RegisterRequest,
 } from '@/types/interfaces/AuthInterfaces';
-import { ApiConfigService } from './ApiConfigService';
-import type {
-  LoginResponse,
-  LogoutResponse,
-  RefreshTokenResponse,
-  RegisterResponse,
-} from '@/types/types/AuthTypes';
+import { useClaimsStore } from '@/state/stores/useClaimsStore';
 
 const AuthApiService = {
   async register({
@@ -47,24 +48,34 @@ const AuthApiService = {
         ApiConfigService.api,
         payload.data.accessToken
       );
+
+      useClaimsStore.getState().setToken(payload.data.accessToken);
+    } else {
+      ApiConfigService.setAccessToken(ApiConfigService.api, undefined);
+      useClaimsStore.getState().clear();
     }
 
     return payload;
   },
 
-  async refreshToken(): Promise<RefreshTokenResponse> {
+  async refreshToken(): Promise<InternalRefreshResponse> {
     const response =
-      await ApiConfigService.internalApi.post<RefreshTokenResponse>('/refresh');
+      await ApiConfigService.internalApi.post<InternalRefreshResponse>(
+        '/refresh'
+      );
 
     const payload = response.data;
 
     if (ApiConfigService.isSuccess(payload)) {
-      await AuthApiService.setRefreshTokenCookie(payload.data.refreshToken);
-
       ApiConfigService.setAccessToken(
         ApiConfigService.api,
         payload.data.accessToken
       );
+
+      useClaimsStore.getState().setToken(payload.data.accessToken);
+    } else {
+      ApiConfigService.setAccessToken(ApiConfigService.api, undefined);
+      useClaimsStore.getState().clear();
     }
 
     return payload;
@@ -79,6 +90,7 @@ const AuthApiService = {
 
       if (payload.success === true) {
         ApiConfigService.setAccessToken(ApiConfigService.api, undefined);
+        useClaimsStore.getState().clear();
       }
 
       return payload;
@@ -88,6 +100,7 @@ const AuthApiService = {
       } catch {}
 
       ApiConfigService.setAccessToken(ApiConfigService.api, undefined);
+      useClaimsStore.getState().clear();
     }
   },
 };

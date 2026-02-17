@@ -1,0 +1,266 @@
+@use '@/styles/variables' as *;
+
+.page {
+    background: $color-bg;
+    min-height: 100%;
+}
+
+.container {
+    display: grid;
+    gap: $sp-4;
+}
+
+.header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $sp-4;
+}
+
+.h1 {
+    font-size: 1.5rem;
+    line-height: $lh-tight;
+    font-weight: 800;
+    color: $color-text;
+}
+
+.subtitle {
+    margin-top: $sp-2;
+    font-size: $fs-md;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+    max-width: 70ch;
+}
+
+.card {
+    background: $color-surface;
+    border: $border-1 solid $color-border;
+    border-radius: $radius-card;
+    box-shadow: $shadow-sm;
+    overflow: hidden;
+}
+
+.tableWrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.th {
+    text-align: left;
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+    font-weight: 800;
+    background: $gray-50;
+    border-bottom: $border-1 solid $color-border;
+    padding: $sp-3 $sp-4;
+    white-space: nowrap;
+}
+
+.td {
+    padding: $sp-3 $sp-4;
+    border-bottom: $border-1 solid $color-border;
+    vertical-align: middle;
+}
+
+.tr:hover {
+    background: $gray-50;
+}
+
+.tr:last-child .td {
+    border-bottom: 0;
+}
+
+.cellStrong {
+    font-weight: 800;
+    color: $color-text;
+}
+
+.cellMuted {
+    color: $color-text-muted;
+}
+
+.select {
+    width: 100%;
+    min-width: 220px;
+    height: $input-height;
+    border-radius: $radius-control;
+    border: $border-1 solid $color-border;
+    background: $color-surface;
+    padding: 0 $sp-4;
+    color: $color-text;
+
+    &:focus-visible {
+        box-shadow: $focus-ring;
+        border-color: $color-border-strong;
+    }
+
+    &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+}
+
+.actionCell {
+    display: flex;
+    justify-content: flex-end;
+    white-space: nowrap;
+}
+
+.primaryBtn {
+    height: $btn-height;
+    border-radius: $radius-control;
+    padding: 0 $sp-4;
+    background: $color-primary;
+    color: $white;
+    font-weight: 800;
+    box-shadow: $shadow-sm;
+    transition: background-color 120ms ease, transform 120ms ease;
+
+    &:hover {
+        background: $color-primary-hover;
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
+
+    &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+}
+
+.secondaryBtn {
+    height: $btn-height;
+    border-radius: $radius-control;
+    padding: 0 $sp-4;
+    background: $gray-100;
+    border: $border-1 solid $color-border;
+    color: $color-text;
+    font-weight: 700;
+    box-shadow: $shadow-sm;
+    transition: background-color 120ms ease, border-color 120ms ease;
+
+    &:hover {
+        background: $gray-200;
+        border-color: $color-border-strong;
+    }
+
+    &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+}
+
+.disabledBtn {
+    height: $btn-height;
+    border-radius: $radius-control;
+    padding: 0 $sp-4;
+    background: $gray-100;
+    border: $border-1 solid $color-border;
+    color: $color-text-muted;
+    font-weight: 700;
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.error {
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    color: $color-danger;
+    background: rgba(239, 68, 68, 0.08);
+    border: $border-1 solid rgba(239, 68, 68, 0.25);
+    border-radius: $radius-control;
+    padding: $sp-3;
+}
+
+.empty {
+    font-size: $fs-md;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+    background: $gray-50;
+    padding: $sp-6;
+}
+
+.note {
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    color: $color-placeholder;
+}
+
+.checkboxLabel {
+    display: inline-flex;
+    align-items: center;
+    gap: $sp-3;
+    user-select: none;
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    border-radius: $r-sm;
+    border: $border-1 solid $color-border-strong;
+    background: $color-surface;
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-grid;
+    place-content: center;
+    cursor: pointer;
+    transition: background-color 120ms ease, border-color 120ms ease,
+        transform 120ms ease;
+
+    &:hover {
+        border-color: $color-primary;
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+
+    &:focus-visible {
+        box-shadow: $focus-ring;
+        border-color: $color-primary;
+    }
+
+    &::after {
+        content: '';
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        transform: scale(0);
+        transition: transform 120ms ease;
+        background: $white;
+    }
+
+    &:checked {
+        background: $color-primary;
+        border-color: $color-primary;
+
+        &::after {
+            transform: scale(1);
+        }
+    }
+
+    &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+
+    &:disabled+.checkboxText {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+}
+
+.checkboxText {
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    color: $color-text;
+    white-space: nowrap;
+}

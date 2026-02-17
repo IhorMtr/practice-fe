@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
 
     if (!refreshTokenFromCookie) {
       return NextResponse.json(
-        { message: 'No refresh token' },
+        { success: false, message: 'No refresh token', data: null },
         { status: 401 }
       );
     }
@@ -23,7 +23,11 @@ export async function POST(req: NextRequest) {
 
     if (!ApiConfigService.isSuccess(payload)) {
       return NextResponse.json(
-        { message: payload.message ?? 'Refresh failed' },
+        {
+          success: false,
+          message: payload.message ?? 'Refresh failed',
+          data: null,
+        },
         { status: 401 }
       );
     }
@@ -31,14 +35,17 @@ export async function POST(req: NextRequest) {
     const { accessToken, refreshToken } = payload.data;
 
     const setCookiesUrl = `${req.nextUrl.origin}/api/auth/set-cookies`;
-
     const setCookieRes = await ApiConfigService.internalApi.post(
       setCookiesUrl,
       { refreshToken },
       { headers: { 'Content-Type': 'application/json' } }
     );
 
-    const res = NextResponse.json({ accessToken });
+    const res = NextResponse.json({
+      success: true,
+      message: null,
+      data: { accessToken },
+    });
 
     const setCookieHeader = setCookieRes.headers['set-cookie'];
     if (Array.isArray(setCookieHeader)) {
@@ -48,9 +55,9 @@ export async function POST(req: NextRequest) {
     }
 
     return res;
-  } catch {
+  } catch (error) {
     return NextResponse.json(
-      { message: 'Unexpected server error' },
+      { success: false, message: (error as Error).message, data: null },
       { status: 500 }
     );
   }
