@@ -4,11 +4,9 @@ import type { FormikHelpers } from 'formik';
 import { useCallback } from 'react';
 
 import styles from './page.module.scss';
-import {
-  useEditClientPage,
-  type ClientEditFormValues,
-} from './useEditClientPage';
+import { useEditClientPage } from './useEditClientPage';
 import ClientEditForm from '@/components/ClientEditForm/ClientEditForm';
+import { ClientEditFormValues } from '@/types/types/ClientTypes';
 
 export default function EditClientPage() {
   const {
