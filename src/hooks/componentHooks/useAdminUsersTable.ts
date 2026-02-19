@@ -6,6 +6,7 @@ import {
   useReactTable,
   type ColumnDef,
 } from '@tanstack/react-table';
+import toast from 'react-hot-toast';
 
 import { useGetUsers } from '@/hooks/requestHooks/useGetUsers';
 import { useUpdateUser } from '@/hooks/requestHooks/useUpdateUser';
@@ -64,7 +65,13 @@ export function useAdminUsersTable() {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const refresh = () => refetchUsers();
+  const refresh = async () => {
+    const res = await refetchUsers();
+
+    if (res.data?.success) {
+      toast.success('Успішно оновлено');
+    }
+  };
 
   const setRoleDraft = (userId: string, role: UserRole) => {
     setDraftRoleById(prev => ({ ...prev, [userId]: role }));

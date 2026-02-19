@@ -65,7 +65,6 @@ export function useSidebar() {
       queryClient.clear();
 
       router.replace('/login');
-      router.refresh();
     }
   }, [logout, clearClaims, queryClient, router]);
 

@@ -1,5 +1,6 @@
 'use client';
 
+import toast from 'react-hot-toast';
 import { useEffect, useMemo, useState } from 'react';
 import {
   getCoreRowModel,
@@ -58,7 +59,13 @@ export function useClientsTable() {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  const refresh = () => refetchClients();
+  const refresh = async () => {
+    const res = await refetchClients();
+
+    if (res.data?.success) {
+      toast.success('Успішно оновлено');
+    }
+  };
 
   const clearSearch = () => setSearchInput('');
 

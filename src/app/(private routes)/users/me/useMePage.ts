@@ -1,4 +1,5 @@
 'use client';
+import toast from 'react-hot-toast';
 
 import { useGetMe } from '@/hooks/requestHooks/useGetMe';
 import type { User } from '@/types/types/GlobalTypes';
@@ -19,13 +20,17 @@ export function useMePage() {
 
   // =============== ACTIONS =============
 
-  const onRetry = () => {
-    refetchMe();
+  const onRetry = async () => {
+    const res = await refetchMe();
+
+    if (res.data?.success) {
+      toast.success('Успішно оновлено');
+    }
   };
 
   return {
     me,
-    isLoading: query.isPending,
+    isLoading: query.isFetching,
     createdAtText,
     updatedAtText,
     onRetry,

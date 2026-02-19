@@ -10,6 +10,8 @@ import {
 
 import { useGetTickets } from '@/hooks/requestHooks/useGetTickets';
 import type { Ticket } from '@/types/types/TicketTypes';
+import { priorityText, statusText } from '@/utils/helpers/ticketLabels';
+import toast from 'react-hot-toast';
 
 export function useTicketsTable() {
   const router = useRouter();
@@ -52,17 +54,18 @@ export function useTicketsTable() {
       {
         header: 'Статус',
         accessorKey: 'status',
-        cell: info => String(info.getValue() ?? '—'),
+        cell: info => statusText(info.getValue()),
       },
       {
         header: 'Пріоритет',
         accessorKey: 'priority',
-        cell: info => String(info.getValue() ?? '—'),
+        cell: info => priorityText(info.getValue()),
       },
+
       {
         header: 'Створено',
         accessorKey: 'createdAt',
-        cell: info => String(info.getValue() ?? '—'),
+        cell: info => info.getValue() ?? '—',
       },
     ];
   }, []);
@@ -75,7 +78,13 @@ export function useTicketsTable() {
 
   // =============== ACTIONS =============
 
-  const refresh = () => refetchTickets();
+  const refresh = async () => {
+    const res = await refetchTickets();
+
+    if (res.data?.success) {
+      toast.success('Успішно оновлено');
+    }
+  };
 
   const clearSearch = () => setSearchInput('');
 
