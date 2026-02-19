@@ -48,6 +48,10 @@ export default function AppShell({ children }: { children: ReactNode }) {
             <div className={styles.error}>{logoutErrorText}</div>
           ) : null}
 
+          <Link href="/users/me" className={styles.profileBtn}>
+            Профіль
+          </Link>
+
           <button
             type="button"
             className={styles.logoutBtn}

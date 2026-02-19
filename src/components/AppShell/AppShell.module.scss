@@ -154,3 +154,30 @@
 .main {
     min-width: 0;
 }
+
+.profileBtn {
+    height: $btn-height;
+    border-radius: $radius-control;
+    padding: 0 $sp-4;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: $color-primary;
+    border: $border-1 solid transparent;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+
+    box-shadow: $shadow-sm;
+    transition: background-color 120ms ease, transform 120ms ease;
+
+    &:hover {
+        background: $primary-600;
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
+}

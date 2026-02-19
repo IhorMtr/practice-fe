@@ -17,6 +17,8 @@ export type User = {
   email: string;
   role: UserRole;
   isActive: boolean;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type RoleKey = Exclude<UserRole, null>;

@@ -1,0 +1,239 @@
+@use '@/styles/variables' as *;
+
+.page {
+    background: $color-bg;
+}
+
+.header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $sp-4;
+    margin-bottom: $sp-5;
+}
+
+.title {
+    font-size: $fs-xl;
+    line-height: $lh-tight;
+    font-weight: 800;
+    color: $color-text;
+}
+
+.subtitle {
+    margin-top: $sp-2;
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+}
+
+.refreshBtn {
+    height: $btn-height;
+    border-radius: $radius-control;
+    padding: 0 $sp-4;
+    background: $color-primary;
+    border: $border-1 solid transparent;
+    color: $white;
+    font-weight: 700;
+    box-shadow: $shadow-sm;
+    transition: background-color 120ms ease, transform 120ms ease;
+
+    &:hover {
+        background: $color-primary-hover;
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
+
+    &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+}
+
+.card {
+    background: $color-surface;
+    border: $border-1 solid $color-border;
+    border-radius: $radius-card;
+    box-shadow: $shadow-sm;
+    padding: $sp-5;
+
+    display: grid;
+    gap: $sp-5;
+}
+
+.cardHeader {
+    display: flex;
+    gap: $sp-4;
+    align-items: center;
+}
+
+.avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, $primary-500, $primary-600);
+    box-shadow: $shadow-sm;
+    flex: 0 0 auto;
+}
+
+.cardHeaderText {
+    min-width: 0;
+    display: grid;
+    gap: $sp-1;
+}
+
+.nameRow {
+    display: flex;
+    align-items: center;
+    gap: $sp-3;
+    flex-wrap: wrap;
+}
+
+.name {
+    font-size: $fs-lg;
+    line-height: $lh-tight;
+    font-weight: 800;
+    color: $color-text;
+}
+
+.email {
+    font-size: $fs-md;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+    word-break: break-word;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    height: 26px;
+    padding: 0 $sp-3;
+    border-radius: 999px;
+    font-size: $fs-sm;
+    font-weight: 700;
+    border: $border-1 solid transparent;
+}
+
+.badgeActive {
+    color: $color-success;
+    background: rgba(22, 163, 74, 0.1);
+    border-color: rgba(22, 163, 74, 0.25);
+}
+
+.badgeInactive {
+    color: $color-danger;
+    background: rgba(239, 68, 68, 0.08);
+    border-color: rgba(239, 68, 68, 0.25);
+}
+
+.kv {
+    display: grid;
+    gap: $sp-3;
+}
+
+.kvRow {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: $sp-4;
+    padding: $sp-3 $sp-4;
+    border: $border-1 solid $color-border;
+    border-radius: $radius-control;
+    background: $gray-50;
+
+    @media (max-width: $bp-md) {
+        grid-template-columns: 1fr;
+        gap: $sp-2;
+    }
+}
+
+.kvLabel {
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+    font-weight: 700;
+}
+
+.kvValue {
+    font-size: $fs-md;
+    line-height: $lh-normal;
+    color: $color-text;
+    word-break: break-word;
+}
+
+.error {
+    margin-bottom: $sp-5;
+    border-radius: $radius-control;
+    padding: $sp-4;
+    border: $border-1 solid rgba(239, 68, 68, 0.25);
+    background: rgba(239, 68, 68, 0.08);
+    display: grid;
+    gap: $sp-3;
+}
+
+.errorTitle {
+    font-weight: 800;
+    color: $color-danger;
+}
+
+.errorText {
+    color: $color-text;
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+}
+
+.retryBtn {
+    height: $btn-height;
+    border-radius: $radius-control;
+    padding: 0 $sp-4;
+    background: $gray-100;
+    border: $border-1 solid $color-border;
+    color: $color-text;
+    font-weight: 700;
+    box-shadow: $shadow-sm;
+    transition: background-color 120ms ease, border-color 120ms ease;
+
+    &:hover {
+        background: $gray-200;
+        border-color: $color-border-strong;
+    }
+
+    &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+}
+
+.skeleton {
+    display: grid;
+    gap: $sp-3;
+}
+
+.skeletonLine {
+    height: 14px;
+    border-radius: 999px;
+    background: $gray-200;
+
+    &:nth-child(1) {
+        width: 40%;
+        height: 16px;
+    }
+
+    &:nth-child(2) {
+        width: 70%;
+    }
+
+    &:nth-child(3) {
+        width: 55%;
+    }
+
+    &:nth-child(4) {
+        width: 65%;
+    }
+}
+
+.empty {
+    font-size: $fs-md;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+}

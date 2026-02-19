@@ -12,9 +12,9 @@ export function useLoginPage() {
 
   const onSubmit = async (values: LoginRequest) => {
     try {
-      const res = await login(values);
+      await login(values);
 
-      toast.success(res?.message ?? 'Успішний вхід');
+      toast.success('Успішний вхід');
 
       router.replace('/');
       router.refresh();

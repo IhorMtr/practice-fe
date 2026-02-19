@@ -1,36 +1,154 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Frontend — Service Desk (Repair Company) | Next.js + TypeScript
 
-## Getting Started
+Веб-інтерфейс внутрішньої системи для сервісної компанії з ремонту та
+обслуговування техніки (ноутбуки, смартфони, мережеве обладнання).  
+Frontend взаємодіє з backend через **REST API**, підтримує **JWT
+(access/refresh)** та **рольову модель доступу (RBAC)**.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Функціональність (згідно ТЗ)
+
+- **Login** сторінка (вхід у систему)
+- **Dashboard** (головна панель) з короткою статистикою
+- **Tickets**:
+  - список заявок
+  - пошук та фільтрація (status/priority тощо)
+  - перегляд деталей
+  - зміна статусів / призначення майстра (залежно від ролі)
+  - коментарі
+- **Clients**:
+  - список клієнтів
+  - створення/редагування
+  - перегляд даних клієнта та історії звернень
+- **Users** (тільки для admin):
+  - список користувачів
+  - редагування ролі/активності
+- **Profile** поточного користувача
+
+---
+
+## UX-вимоги
+
+- індикатори завантаження
+- коректна обробка помилок
+- повідомлення про успіх/помилку дій користувача
+
+---
+
+## Ролі та доступ (RBAC)
+
+- **admin** — повний доступ до всіх сторінок та даних, включно з Users.
+- **manager** — робота з клієнтами і заявками (CRUD, статуси, призначення
+  майстра).
+- **technician** — бачить лише призначені йому заявки, може змінювати статус та
+  залишати коментарі.
+
+---
+
+## Технології та бібліотеки
+
+- **Next.js 16** + **React 19** + **TypeScript**
+- **SCSS (sass)** + **modern-normalize**
+- `@tanstack/react-query` + `@tanstack/react-query-devtools`
+- `axios`
+- `zustand`
+- `formik`
+- `yup`
+- `@tanstack/react-table`
+- `react-hot-toast`
+- `react-spinners`
+
+---
+
+## Вимоги
+
+- Node.js **LTS**
+- Запущений backend локально (REST API)
+
+---
+
+## Налаштування середовища
+
+Потрібно створити файл `.env`
+
+### `.env.example`
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:3001
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Встановлення та запуск
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+npm install
+npm run dev
 
-## Learn More
+Відкрити: `http://localhost:3000`
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Production
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+npm run build
+npm run start
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Скрипти
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `npm run dev`
+- `npm run build`
+- `npm run start`
+- `npm run lint`
+
+```
+
+---
+
+## Авторизація (JWT access/refresh)
+
+- **access token** для доступу до приватних ендпоінтів
+- **refresh token** для оновлення access token
+
+---
+
+## Тестові сценарії (manual QA)
+
+### Auth / доступ
+
+- Відкриття приватних сторінок без логіну → redirect на `/login`.
+- Невалідні креденшали → повідомлення про помилку.
+- Валідні → перехід на Dashboard.
+
+### RBAC
+
+- `admin` бачить і відкриває сторінку Users.
+- `manager` не має доступу до Users.
+- `technician` бачить лише свої tickets.
+
+### Tickets
+
+- Створення заявки (admin/manager) → з'являється у списку.
+- Пошук/фільтри працюють.
+- Зміна статусу доступна за роллю.
+- Призначення майстра (admin/manager) → майстер бачить заявку у себе.
+
+### Clients
+
+- Створення/редагування клієнта → відображається у списку.
+- Дані клієнта коректно відображаються в деталях заявки.
+
+### UX
+
+- Toast на успіх/помилку.
+- Обробка помилок `401/403/500`.
+
+---
+
+## Заходи безпеки
+
+- приватні маршрути захищені на рівні UI
+- UI не показує/не дає виконувати заборонені роллю дії
+- конфіденційні значення зберігаються в `.env` і не комітяться

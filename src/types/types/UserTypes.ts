@@ -5,3 +5,4 @@ export type GetUsersResponse = BaseResponse<User[]>;
 export type UpdateUserResponse = BaseResponse<User>;
 export type GetUserByIdResponse = BaseResponse<User>;
 export type GetTechniciansResponse = BaseResponse<User[]>;
+export type GetMeResponse = BaseResponse<User>;

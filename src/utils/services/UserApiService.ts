@@ -7,6 +7,7 @@ import {
   GetUsersResponse,
   GetUserByIdResponse,
   GetTechniciansResponse,
+  GetMeResponse,
 } from '@/types/types/UserTypes';
 import { ApiConfigService } from '@/utils/services/ApiConfigService';
 
@@ -42,6 +43,11 @@ const UserApiService = {
       await ApiConfigService.api.get<GetTechniciansResponse>(
         '/users/technicians'
       );
+    return res.data;
+  },
+
+  async getMe(): Promise<GetMeResponse> {
+    const res = await ApiConfigService.api.get<GetMeResponse>('/users/me');
     return res.data;
   },
 };
