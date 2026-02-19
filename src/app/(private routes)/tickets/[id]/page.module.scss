@@ -1,0 +1,278 @@
+@use '@/styles/variables' as *;
+
+.ticketPage {
+    background: $color-bg;
+    min-height: 100%;
+}
+
+.ticketContainer {
+    display: grid;
+    gap: $sp-4;
+}
+
+.ticketHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $sp-4;
+
+    .ticketHeaderText {
+        min-width: 0;
+    }
+}
+
+.title {
+    font-size: 1.5rem;
+    line-height: $lh-tight;
+    font-weight: 800;
+    color: $color-text;
+}
+
+.sectionTitle {
+    font-size: $fs-lg;
+    line-height: $lh-tight;
+    font-weight: 800;
+    color: $color-text;
+}
+
+.subtitle {
+    margin-top: $sp-2;
+    font-size: $fs-md;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+    max-width: 70ch;
+}
+
+.headerActions {
+    display: flex;
+    gap: $sp-3;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: $color-surface;
+    border: $border-1 solid $color-border;
+    border-radius: $radius-card;
+    box-shadow: $shadow-sm;
+    overflow: hidden;
+
+    .cardHeader {
+        padding: $sp-4 $sp-5;
+        border-bottom: $border-1 solid $color-border;
+        background: $gray-50;
+    }
+
+    .cardEmpty {
+        font-size: $fs-md;
+        line-height: $lh-normal;
+        color: $color-text-muted;
+        background: $gray-50;
+        padding: $sp-6;
+    }
+}
+
+.infoGrid {
+    padding: $sp-5;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $sp-4;
+
+    @media (min-width: $bp-md) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .infoItem {
+        display: grid;
+        gap: $sp-2;
+    }
+
+    .infoItemFull {
+        display: grid;
+        gap: $sp-2;
+
+        @media (min-width: $bp-md) {
+            grid-column: 1 / -1;
+        }
+    }
+}
+
+.infoLabel {
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+    font-weight: 700;
+}
+
+.infoValue {
+    color: $color-text;
+    font-size: $fs-md;
+    line-height: $lh-normal;
+}
+
+.infoValueStrong {
+    color: $color-text;
+    font-weight: 800;
+    font-size: $fs-md;
+    line-height: $lh-normal;
+}
+
+.infoValueMuted {
+    color: $color-text-muted;
+    font-size: $fs-sm;
+    line-height: $lh-normal;
+    word-break: break-all;
+}
+
+.metaRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $sp-3;
+    padding-top: $sp-2;
+
+    @media (min-width: $bp-md) {
+        grid-column: 1 / -1;
+    }
+
+    .metaItem {
+        color: $color-text-muted;
+        font-size: $fs-sm;
+        line-height: $lh-normal;
+    }
+
+    .metaLabel {
+        font-weight: 700;
+    }
+
+    .metaValue {
+        color: $color-text;
+    }
+}
+
+.clientLink {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    max-width: 100%;
+
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+
+    cursor: pointer;
+
+    &:hover {
+        .clientName {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+    }
+
+    &:focus-visible {
+        outline: 2px solid $color-primary;
+        outline-offset: 2px;
+        border-radius: $radius-control;
+    }
+
+    .clientName {
+        color: $color-text;
+        font-weight: 800;
+        font-size: $fs-md;
+        line-height: $lh-normal;
+        text-decoration: none;
+    }
+
+    .clientEmail {
+        color: $color-text-muted;
+        font-size: $fs-sm;
+        line-height: $lh-normal;
+        word-break: break-all;
+    }
+}
+
+.historyWrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.historyTable {
+    width: 100%;
+    border-collapse: collapse;
+
+    .historyHead {
+        text-align: left;
+        font-size: $fs-sm;
+        line-height: $lh-normal;
+        color: $color-text-muted;
+        font-weight: 800;
+        background: $gray-50;
+        border-bottom: $border-1 solid $color-border;
+        padding: $sp-3 $sp-4;
+        white-space: nowrap;
+    }
+
+    .historyCell {
+        padding: $sp-3 $sp-4;
+        border-bottom: $border-1 solid $color-border;
+        vertical-align: top;
+    }
+}
+
+.historyAction {
+    font-weight: 800;
+    color: $color-text;
+}
+
+.historyActor {
+    color: $color-text-muted;
+    font-size: $fs-xs;
+    margin-top: 2px;
+}
+
+.btnPrimary {
+    height: $btn-height;
+    border-radius: $radius-control;
+    padding: 0 $sp-4;
+    background: $color-primary;
+    color: $white;
+    font-weight: 800;
+    box-shadow: $shadow-sm;
+    transition: background-color 120ms ease, transform 120ms ease;
+
+    &:hover {
+        background: $color-primary-hover;
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
+
+    &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+}
+
+.btnSecondary {
+    height: $btn-height;
+    border-radius: $radius-control;
+    padding: 0 $sp-4;
+    background: $gray-100;
+    border: $border-1 solid $color-border;
+    color: $color-text;
+    font-weight: 700;
+    box-shadow: $shadow-sm;
+    transition: background-color 120ms ease, border-color 120ms ease;
+
+    &:hover {
+        background: $gray-200;
+        border-color: $color-border-strong;
+    }
+
+    &:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+    }
+}

@@ -2,6 +2,7 @@
 
 import { useCallback, useMemo } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { useLogout } from '../requestHooks/useLogout';
 import type { RoleKey } from '@/types/types/GlobalTypes';
@@ -16,12 +17,15 @@ type NavItem = {
 export function useSidebar() {
   const router = useRouter();
   const pathname = usePathname();
+  const queryClient = useQueryClient();
 
   const { logout, query, error } = useLogout();
 
   const role = useClaimsStore(s => s.claims?.role ?? null);
+  const clearClaims = useClaimsStore(s => s.clear);
 
   // =============== NAV ITEMS =============
+
   const navItems: NavItem[] = useMemo(() => {
     const all: NavItem[] = [
       { label: 'Головна', href: '/' },
@@ -38,29 +42,32 @@ export function useSidebar() {
   }, [role]);
 
   // =============== ACTIVE LINK =============
-  const activeHref = useMemo(() => {
-    const exact = navItems.find(i => i.href === pathname)?.href;
-    if (exact) return exact;
 
-    const byPrefix = navItems.find(
-      i => i.href !== '/' && pathname?.startsWith(i.href)
-    );
-    return byPrefix?.href ?? '/';
-  }, [navItems, pathname]);
+  const exact = navItems.find(i => i.href === pathname)?.href;
+
+  const byPrefix = navItems.find(
+    i => i.href !== '/' && pathname?.startsWith(i.href)
+  )?.href;
+
+  const activeHref = exact ?? byPrefix ?? '/';
 
   // =============== LOGOUT =============
-  const logoutErrorText = useMemo(() => {
-    if (!error) return '';
-    return error.message || 'Не вдалося вийти з системи. Спробуйте ще раз.';
-  }, [error]);
+
+  const logoutErrorText =
+    error?.message ||
+    (error ? 'Не вдалося вийти з системи. Спробуйте ще раз.' : '');
 
   const onLogout = useCallback(async () => {
     try {
       await logout();
+    } finally {
+      clearClaims();
+      queryClient.clear();
+
       router.replace('/login');
       router.refresh();
-    } catch {}
-  }, [logout, router]);
+    }
+  }, [logout, clearClaims, queryClient, router]);
 
   return {
     navItems,

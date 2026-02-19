@@ -6,6 +6,7 @@ import {
   UpdateUserResponse,
   GetUsersResponse,
   GetUserByIdResponse,
+  GetTechniciansResponse,
 } from '@/types/types/UserTypes';
 import { ApiConfigService } from '@/utils/services/ApiConfigService';
 
@@ -33,6 +34,14 @@ const UserApiService = {
       `/users/${userId}`,
       { role, isActive }
     );
+    return res.data;
+  },
+
+  async getTechnicians(): Promise<GetTechniciansResponse> {
+    const res =
+      await ApiConfigService.api.get<GetTechniciansResponse>(
+        '/users/technicians'
+      );
     return res.data;
   },
 };

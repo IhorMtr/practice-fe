@@ -1,0 +1,33 @@
+@use '@/styles/variables' as *;
+
+.page {
+    background: $color-bg;
+    min-height: 100%;
+}
+
+.container {
+    display: grid;
+    gap: $sp-4;
+}
+
+.header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $sp-4;
+}
+
+.h1 {
+    font-size: 1.5rem;
+    line-height: $lh-tight;
+    font-weight: 800;
+    color: $color-text;
+}
+
+.subtitle {
+    margin-top: $sp-2;
+    font-size: $fs-md;
+    line-height: $lh-normal;
+    color: $color-text-muted;
+    max-width: 70ch;
+}

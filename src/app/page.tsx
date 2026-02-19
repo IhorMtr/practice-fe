@@ -4,10 +4,30 @@ import styles from './page.module.scss';
 import AppShell from '@/components/AppShell/AppShellt';
 import Rbac from '@/components/Rbac/Rbac';
 import { useHomePage } from './useHomePage';
+import { priorityText, statusText } from '@/utils/helpers/ticketLabels';
+
+function formatDate(value?: string | Date) {
+  if (!value) return '—';
+  const d = value instanceof Date ? value : new Date(String(value));
+  if (Number.isNaN(d.getTime())) return String(value);
+  return d.toLocaleString('uk-UA');
+}
 
 export default function Home() {
-  const { title, onOpenTickets, onOpenClients, onAddClient, onOpenUsers } =
-    useHomePage();
+  const {
+    title,
+    ticketsQuery,
+    ticketsErrorText,
+    stats,
+    recentTickets,
+    onOpenTickets,
+    onOpenClients,
+    onAddClient,
+    onOpenUsers,
+    onOpenTicket,
+  } = useHomePage();
+
+  const statLoading = ticketsQuery.isLoading || ticketsQuery.isFetching;
 
   return (
     <AppShell>
@@ -17,30 +37,53 @@ export default function Home() {
             <div>
               <h1 className={styles.h1}>Головна</h1>
               <p className={styles.subtitle}>
-                {title}. Тут буде короткий огляд заявок та швидкі дії.
+                {title}. Короткий огляд заявок та швидкі дії.
               </p>
             </div>
           </div>
 
           <div className={styles.grid}>
-            <article className={styles.card}>
+            <article
+              className={styles.card}
+              role="button"
+              tabIndex={0}
+              onClick={onOpenTickets}
+            >
               <div className={styles.cardTitle}>Активні заявки</div>
-              <div className={styles.cardValue}>—</div>
-              <div className={styles.cardHint}>Поки що нема</div>
-            </article>
-
-            <article className={styles.card}>
-              <div className={styles.cardTitle}>Очікує погодження</div>
-              <div className={styles.cardValue}>—</div>
-              <div className={styles.cardHint}>Погодження вартості/робіт</div>
-            </article>
-
-            <article className={styles.card}>
-              <div className={styles.cardTitle}>Готово сьогодні</div>
-              <div className={styles.cardValue}>—</div>
-              <div className={styles.cardHint}>
-                Пристрої для видачі клієнтам
+              <div className={styles.cardValue}>
+                {statLoading ? '…' : stats.activeCount}
               </div>
+              <div className={styles.cardHint}>
+                {statusText('new')} та {statusText('in_progress')}
+              </div>
+            </article>
+
+            <article
+              className={styles.card}
+              role="button"
+              tabIndex={0}
+              onClick={onOpenTickets}
+            >
+              <div className={styles.cardTitle}>Очікує погодження</div>
+              <div className={styles.cardValue}>
+                {statLoading ? '…' : stats.awaitingApprovalCount}
+              </div>
+              <div className={styles.cardHint}>
+                Запланована ціна та статус {statusText('new')}
+              </div>
+            </article>
+
+            <article
+              className={styles.card}
+              role="button"
+              tabIndex={0}
+              onClick={onOpenTickets}
+            >
+              <div className={styles.cardTitle}>Готово сьогодні</div>
+              <div className={styles.cardValue}>
+                {statLoading ? '…' : stats.doneTodayCount}
+              </div>
+              <div className={styles.cardHint}>Статус {statusText('done')}</div>
             </article>
           </div>
 
@@ -48,9 +91,55 @@ export default function Home() {
             <article className={styles.panel}>
               <div className={styles.panelHeader}>
                 <h2 className={styles.h2}>Останні заявки</h2>
-                <span className={styles.badge}>Незабаром</span>
               </div>
-              <div className={styles.empty}>Даних поки немає.</div>
+
+              {ticketsQuery.isLoading ? (
+                <div className={styles.empty}>Завантаження…</div>
+              ) : ticketsQuery.isError ? (
+                <div className={styles.error}>
+                  {ticketsErrorText || 'Не вдалося завантажити заявки.'}
+                </div>
+              ) : recentTickets.length === 0 ? (
+                <div className={styles.empty}>Даних поки немає.</div>
+              ) : (
+                <ul className={styles.ticketList}>
+                  {recentTickets.map(t => (
+                    <li key={t._id} className={styles.ticketItem}>
+                      <button
+                        type="button"
+                        className={styles.ticketBtn}
+                        onClick={() => onOpenTicket(t._id)}
+                      >
+                        <div className={styles.ticketTop}>
+                          <div className={styles.ticketTitle}>
+                            {t.deviceType}
+                          </div>
+                          <div className={styles.ticketMeta}>
+                            {formatDate(t.updatedAt)}
+                          </div>
+                        </div>
+
+                        <div className={styles.ticketBottom}>
+                          <div className={styles.ticketSub}>
+                            {t.client?.fullName
+                              ? t.client.fullName
+                              : 'Клієнт: —'}
+                          </div>
+
+                          <div className={styles.ticketBadges}>
+                            <span className={styles.badge}>
+                              {statusText(t.status)}
+                            </span>
+                            <span className={styles.badgeSecondary}>
+                              {priorityText(t.priority)}
+                            </span>
+                          </div>
+                        </div>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </article>
 
             <article className={styles.panel}>
@@ -95,10 +184,6 @@ export default function Home() {
                   </button>
                 </Rbac>
               </div>
-
-              <p className={styles.muted}>
-                Статистика по заявках з’явиться після реалізації tickets.
-              </p>
             </article>
           </div>
         </section>
