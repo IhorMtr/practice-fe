@@ -91,17 +91,17 @@ npm run dev
 
 ## Production
 
-npm run build
-npm run start
+- npm run build
+- npm run start
 
 ---
 
 ## Скрипти
 
-- `npm run dev`
-- `npm run build`
-- `npm run start`
-- `npm run lint`
+- npm run dev
+- npm run build
+- npm run start
+- npm run lint
 
 ```
 
